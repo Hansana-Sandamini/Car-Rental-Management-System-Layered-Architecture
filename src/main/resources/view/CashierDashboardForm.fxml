@@ -22,7 +22,7 @@
          <children>
             <ImageView fitHeight="374.0" fitWidth="385.0" layoutX="104.0" layoutY="22.0">
                <image>
-                  <Image url="@../assets/CashierDashboard.jpeg" />
+                  <Image url="@../assets/images/CashierDashboard.jpeg" />
                </image>
             </ImageView>
          </children>
