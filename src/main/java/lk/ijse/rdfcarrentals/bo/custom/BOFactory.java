@@ -1,9 +1,6 @@
 package lk.ijse.rdfcarrentals.bo.custom;
 
-import lk.ijse.rdfcarrentals.bo.custom.impl.CarBOImpl;
-import lk.ijse.rdfcarrentals.bo.custom.impl.CashierBOImpl;
-import lk.ijse.rdfcarrentals.bo.custom.impl.CustomerBOImpl;
-import lk.ijse.rdfcarrentals.bo.custom.impl.FuelTypeBOImpl;
+import lk.ijse.rdfcarrentals.bo.custom.impl.*;
 
 public class BOFactory {
 
@@ -19,7 +16,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CASHIER, CUSTOMER, FUEL_TYPE, CAR
+        CASHIER, CUSTOMER, FUEL_TYPE, CAR, DRIVER_ASSIGNMENT
     }
 
     public SuperBO getBO(BOType type) {
@@ -28,6 +25,7 @@ public class BOFactory {
             case CUSTOMER: return new CustomerBOImpl();
             case FUEL_TYPE: return new FuelTypeBOImpl();
             case CAR: return new CarBOImpl();
+            case DRIVER_ASSIGNMENT: return new DriverAssignmentBOImpl();
             default: return null;
         }
     }

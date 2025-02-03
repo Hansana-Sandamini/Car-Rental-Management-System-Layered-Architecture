@@ -40,12 +40,14 @@ public class FuelTypeDAOImpl implements FuelTypeDAO {
     @Override
     public FuelType search(String selectedTypeId) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM fuel_type WHERE type_id = ?", selectedTypeId);
-        rst.next();
+        if (rst.next()) {
             FuelType fuelType = new FuelType(
-                rst.getString("type_id"),
-                rst.getString("type_name")
+                    rst.getString(1),
+                    rst.getString(2)
             );
-        return fuelType;
+            return fuelType;
+        }
+        return null;
     }
 
     @Override

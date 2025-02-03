@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="driverAssignmentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="768.0" style="-fx-background-color: white; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.rdfcarrentals.controller.DriverAssignmentFormController">
+   <children>
+      <TableView fx:id="tblDriverAssignment" layoutX="26.0" layoutY="13.0" prefHeight="223.0" prefWidth="725.0" stylesheets="@../assets/styles/TableStyle.css">
+         <columns>
+            <TableColumn fx:id="colLicensePlateNo" prefWidth="132.0" text="License Plate No" />
+            <TableColumn fx:id="colDriverNic" prefWidth="175.0" text="Driver NIC" />
+            <TableColumn fx:id="colPricePerKm" prefWidth="134.0" text="Price Per km" />
+            <TableColumn fx:id="colDate" prefWidth="147.0" text="Date" />
+            <TableColumn fx:id="colTime" prefWidth="134.0" text="Time" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
