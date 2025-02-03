@@ -42,7 +42,8 @@ public class CashierDAOImpl implements CashierDAO {
 
     @Override
     public void update(Cashier cashier) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute("UPDATE cashier SET password = ?, name = ?, contact_number = ?, email = ? WHERE username = ?",
+        SQLUtil.execute(
+                "UPDATE cashier SET password = ?, name = ?, contact_number = ?, email = ? WHERE username = ?",
                 cashier.getPassword(),
                 cashier.getName(),
                 cashier.getContactNumber(),
@@ -81,8 +82,8 @@ public class CashierDAOImpl implements CashierDAO {
     }
 
     @Override
-    public void loadAllIDs() throws SQLException, ClassNotFoundException {
-
+    public ArrayList<String> loadAllIDs() throws SQLException, ClassNotFoundException {
+        return null;
     }
 
     @Override

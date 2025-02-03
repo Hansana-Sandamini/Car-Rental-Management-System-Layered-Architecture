@@ -1,6 +1,7 @@
 package lk.ijse.rdfcarrentals.bo.custom;
 
 import lk.ijse.rdfcarrentals.bo.custom.impl.CashierBOImpl;
+import lk.ijse.rdfcarrentals.bo.custom.impl.CustomerBOImpl;
 
 public class BOFactory {
 
@@ -16,12 +17,13 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CASHIER
+        CASHIER, CUSTOMER
     }
 
     public SuperBO getBO(BOType type) {
         switch (type) {
             case CASHIER: return new CashierBOImpl();
+            case CUSTOMER: return new CustomerBOImpl();
             default: return null;
         }
     }

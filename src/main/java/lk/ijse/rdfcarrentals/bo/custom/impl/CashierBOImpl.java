@@ -24,8 +24,8 @@ public class CashierBOImpl implements CashierBO, SuperBO {
                     cashier.getPassword(),
                     cashier.getName(),
                     cashier.getContactNumber(),
-                    cashier.getEmail())
-            );
+                    cashier.getEmail()
+            ));
         }
         return cashierDTOS;
     }
