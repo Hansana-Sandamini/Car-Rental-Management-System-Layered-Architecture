@@ -20,7 +20,3 @@ public class CustomerTM implements Comparable<CustomerTM> {
     }
 }
 
-//@Override
-//public int compareTo(CashierTM o) {
-//    return userName.compareTo(o.getUserName());
-//}
