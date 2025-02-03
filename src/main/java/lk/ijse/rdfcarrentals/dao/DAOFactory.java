@@ -13,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DAOType {
-        CASHIER, CUSTOMER, FUEL_TYPE, CAR, DRIVER_ASSIGNMENT
+        CASHIER, CUSTOMER, FUEL_TYPE, CAR, DRIVER_ASSIGNMENT, REPAIR
     }
 
     public SuperDAO getDAO(DAOType type) {
@@ -23,6 +23,7 @@ public class DAOFactory {
             case FUEL_TYPE: return new FuelTypeDAOImpl();
             case CAR: return new CarDAOImpl();
             case DRIVER_ASSIGNMENT: return new DriverAssignmentDAOImpl();
+            case REPAIR: return new RepairDAOImpl();
             default: return null;
         }
     }

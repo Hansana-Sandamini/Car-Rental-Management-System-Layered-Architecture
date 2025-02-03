@@ -76,17 +76,19 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public Car search(String selectedLicensePlateNo) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM car WHERE license_plate_no = ?", selectedLicensePlateNo);
-        rst.next();
-        Car car = new Car(
-                rst.getString("license_plate_no"),
-                rst.getString("model"),
-                rst.getString("colour"),
-                rst.getDouble("daily_rate"),
-                rst.getDouble("monthly_rate"),
-                rst.getString("availability_status"),
-                rst.getString("type_id")
-        );
-        return car;
+        if (rst.next()) {
+            Car car = new Car(
+                    rst.getString("license_plate_no"),
+                    rst.getString("model"),
+                    rst.getString("colour"),
+                    rst.getDouble("daily_rate"),
+                    rst.getDouble("monthly_rate"),
+                    rst.getString("availability_status"),
+                    rst.getString("type_id")
+            );
+            return car;
+        }
+        return null;
     }
 
     @Override
