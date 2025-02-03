@@ -2,6 +2,7 @@ package lk.ijse.rdfcarrentals.dao;
 
 import lk.ijse.rdfcarrentals.dao.custom.impl.CashierDAOImpl;
 import lk.ijse.rdfcarrentals.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.rdfcarrentals.dao.custom.impl.FuelTypeDAOImpl;
 
 public class DAOFactory {
 
@@ -14,13 +15,14 @@ public class DAOFactory {
     }
 
     public enum DAOType {
-        CASHIER, CUSTOMER
+        CASHIER, CUSTOMER, FUELTYPE
     }
 
     public SuperDAO getDAO(DAOType type) {
         switch (type) {
             case CASHIER: return new CashierDAOImpl();
             case CUSTOMER: return new CustomerDAOImpl();
+            case FUELTYPE: return new FuelTypeDAOImpl();
             default: return null;
         }
     }
