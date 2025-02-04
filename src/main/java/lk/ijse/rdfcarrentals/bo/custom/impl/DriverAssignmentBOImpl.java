@@ -43,7 +43,11 @@ public class DriverAssignmentBOImpl implements DriverAssignmentBO, SuperBO {
     }
 
     @Override
-    public boolean saveDriverAssignmentList(ArrayList<DriverAssignmentDTO> driverAssignmentDTOS) throws SQLException, ClassNotFoundException {
-        return false;
+    public void saveDriverAssignmentList(ArrayList<DriverAssignment> driverAssignments) throws SQLException, ClassNotFoundException {
+        for (DriverAssignment driverAssignment : driverAssignments) {
+            driverAssignmentDAO.save(driverAssignment);
+        }
     }
 }
+
+

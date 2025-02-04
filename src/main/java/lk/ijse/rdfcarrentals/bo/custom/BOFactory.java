@@ -16,7 +16,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CASHIER, CUSTOMER, FUEL_TYPE, CAR, DRIVER_ASSIGNMENT, REPAIR
+        CASHIER, CUSTOMER, FUEL_TYPE, CAR, DRIVER_ASSIGNMENT, REPAIR, DRIVER
     }
 
     public SuperBO getBO(BOType type) {
@@ -27,6 +27,7 @@ public class BOFactory {
             case CAR: return new CarBOImpl();
             case DRIVER_ASSIGNMENT: return new DriverAssignmentBOImpl();
             case REPAIR: return new RepairBOImpl();
+            case DRIVER: return new DriverBOImpl();
             default: return null;
         }
     }
