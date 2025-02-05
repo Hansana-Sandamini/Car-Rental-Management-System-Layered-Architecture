@@ -2,7 +2,6 @@ package lk.ijse.rdfcarrentals.dao.custom.impl;
 
 import lk.ijse.rdfcarrentals.dao.SQLUtil;
 import lk.ijse.rdfcarrentals.dao.custom.DriverAssignmentDAO;
-import lk.ijse.rdfcarrentals.dto.DriverAssignmentDTO;
 import lk.ijse.rdfcarrentals.entity.DriverAssignment;
 
 import java.sql.ResultSet;
@@ -45,12 +44,10 @@ public class DriverAssignmentDAOImpl implements DriverAssignmentDAO {
 
     @Override
     public void update(DriverAssignment driverAssignment) throws SQLException, ClassNotFoundException {
-
     }
 
     @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
-
     }
 
     @Override

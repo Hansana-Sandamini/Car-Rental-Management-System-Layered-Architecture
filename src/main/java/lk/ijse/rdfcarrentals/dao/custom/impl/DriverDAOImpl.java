@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DriverDAOImpl implements DriverDAO {
+
     @Override
     public ArrayList<Driver> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM `driver`");
