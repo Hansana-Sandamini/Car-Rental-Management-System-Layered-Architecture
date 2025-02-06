@@ -1,6 +1,5 @@
 package lk.ijse.rdfcarrentals.entity;
 
-import lk.ijse.rdfcarrentals.dto.DriverAssignmentDTO;
 import lombok.*;
 
 import java.util.ArrayList;

@@ -62,4 +62,9 @@ public class CashierBOImpl implements CashierBO, SuperBO {
         cashierDAO.delete(selectedCashier);
     }
 
+    @Override
+    public ArrayList<String> loadAllCashierUsernames() throws SQLException, ClassNotFoundException {
+        return cashierDAO.loadAllIDs();
+    }
+
 }

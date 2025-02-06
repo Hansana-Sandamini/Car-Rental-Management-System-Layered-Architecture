@@ -83,7 +83,14 @@ public class CashierDAOImpl implements CashierDAO {
 
     @Override
     public ArrayList<String> loadAllIDs() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.execute("SELECT username FROM cashier");
+
+        ArrayList<String> cashierUsernames = new ArrayList<>();
+
+        while (rst.next()) {
+            cashierUsernames.add(rst.getString(1));
+        }
+        return cashierUsernames;
     }
 
     @Override
