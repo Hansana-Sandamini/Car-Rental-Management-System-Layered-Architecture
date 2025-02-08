@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="creditsContent" prefHeight="800.0" prefWidth="1026.0" style="-fx-background-color: #dfe4ea;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.rdfcarrentals.controller.CreditsFormController">
+   <children>
+      <AnchorPane layoutX="25.0" prefHeight="102.0" prefWidth="1006.0" style="-fx-background-color: white;">
+         <children>
+            <Label alignment="CENTER" layoutX="375.0" layoutY="34.0" prefHeight="34.0" prefWidth="118.0" text="Credits" textFill="#273c75">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblCredits" layoutX="26.0" layoutY="454.0" onMouseClicked="#tblCreditsOnClicked" prefHeight="324.0" prefWidth="978.0" stylesheets="@../assets/styles/TableStyle.css">
+         <columns>
+            <TableColumn fx:id="colCreditID" prefWidth="147.0" text="Credit ID" />
+            <TableColumn fx:id="colReservationId" prefWidth="135.0" text="Reservation ID" />
+            <TableColumn fx:id="colTotalAmount" prefWidth="161.0" text="Total Amount" />
+            <TableColumn fx:id="colAmountPaid" minWidth="1.0" prefWidth="157.0" text="Amount Paid" />
+            <TableColumn fx:id="colAmountToPay" prefWidth="139.0" text="Amount To Pay" />
+            <TableColumn fx:id="colDueDate" prefWidth="139.0" text="Due Date" />
+            <TableColumn fx:id="colOption" prefWidth="98.0" text="Options" />
+         </columns>
+      </TableView>
+      <TextField fx:id="txtFldSearchHere" layoutX="272.0" layoutY="407.0" onKeyReleased="#txtFldSearchHereOnAction" prefHeight="35.0" prefWidth="500.0" promptText="       Search Here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <FontAwesomeIcon fx:id="searchIcon" fill="#c3bfbf" iconName="SEARCH" layoutX="285.0" layoutY="430.0" />
+      <AnchorPane layoutX="26.0" layoutY="128.0" prefHeight="261.0" prefWidth="978.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+         <children>
+            <Label layoutX="14.0" layoutY="4.0" prefHeight="43.0" prefWidth="145.0" text="Credit ID" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="100.0" prefHeight="43.0" prefWidth="145.0" text="Total Amount" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="148.0" prefHeight="43.0" prefWidth="145.0" text="Amount Paid" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbCustomerNIC" layoutX="162.0" layoutY="58.0" onAction="#cmbCustomerNICOnAction" prefHeight="35.0" prefWidth="236.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: #dcdde1;" />
+            <Label layoutX="14.0" layoutY="54.0" prefHeight="43.0" prefWidth="145.0" text="Customer NIC" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCreditID" layoutX="162.0" layoutY="4.0" prefHeight="43.0" prefWidth="236.0" text="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="464.0" layoutY="54.0" prefHeight="43.0" prefWidth="145.0" text="Due Date" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="464.0" layoutY="9.0" prefHeight="43.0" prefWidth="145.0" text="Reservation ID" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbReservationID" layoutX="615.0" layoutY="13.0" onAction="#cmbReservationIDOnAction" prefHeight="35.0" prefWidth="236.0" promptText="Select" style="-fx-background-color: white; -fx-border-color: #dcdde1;" />
+            <Label layoutX="13.0" layoutY="197.0" prefHeight="43.0" prefWidth="145.0" text="Amount To Pay" textFill="#636e72">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="txtDueDate" layoutX="615.0" layoutY="58.0" prefHeight="35.0" prefWidth="236.0" />
+            <TextField fx:id="txtFldTotalAmount" layoutX="162.0" layoutY="104.0" prefHeight="35.0" prefWidth="236.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtFldAmountPaid" layoutX="162.0" layoutY="152.0" prefHeight="35.0" prefWidth="236.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtFldAmountToPay" layoutX="162.0" layoutY="201.0" prefHeight="35.0" prefWidth="236.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnSave" layoutX="813.0" layoutY="337.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="40.0" prefWidth="169.0" style="-fx-background-color: #dff9fb; -fx-border-color: #273c75; -fx-border-radius: 10;" text="SAVE" textFill="#273c75">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnRefresh" layoutX="813.0" layoutY="275.0" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefHeight="40.0" prefWidth="169.0" style="-fx-background-color: #dff9fb; -fx-border-radius: 10; -fx-border-color: #e84118;" text="      REFRESH" textFill="#e84118">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <FontAwesomeIcon fill="#273c75" iconName="SAVE" layoutX="834.0" layoutY="366.0" size="2em" />
+      <FontAwesomeIcon fill="#e84118" iconName="REFRESH" layoutX="834.0" layoutY="304.0" size="2em" />
+      <FontAwesomeIcon fill="#636e72" iconName="USER" layoutX="795.0" layoutY="31.0" size="2em" />
+      <Button fx:id="btnViewBill" layoutX="604.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnViewBillOnAction" prefHeight="40.0" prefWidth="176.0" style="-fx-background-color: #dfe6e9; -fx-border-radius: 10; -fx-border-color: #00b894;" text="      VIEW BILL" textFill="#00b894">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <FontAwesomeIcon fill="#00b894" iconName="EYE" layoutX="624.0" layoutY="360.0" size="2em" />
+      <Label fx:id="lblHeadingUserName" layoutX="826.0" layoutY="9.0" prefHeight="35.0" prefWidth="198.0" text="Hansana Sandamini" textFill="#636e72">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="496.0" layoutY="235.0" prefHeight="43.0" prefWidth="81.0" text="Bill ID" textFill="#636e72">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBillID" layoutX="641.0" layoutY="235.0" prefHeight="43.0" prefWidth="145.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <FontAwesomeIcon fx:id="darkModeIcon" fill="#636e72" iconName="TOGGLE_ON" layoutX="613.0" layoutY="34.0" onMouseClicked="#darkModeIconOnAction" size="2em" />
+      <Label fx:id="lblHeadingUserName1" layoutX="648.0" layoutY="8.0" prefHeight="35.0" prefWidth="123.0" text="Dark Mode" textFill="#636e72">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
