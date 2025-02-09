@@ -77,7 +77,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     @Override
     public Reservation search(String selectedReservationID) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM reservation WHERE reservation_id = ?", selectedReservationID);
-        rst.next();
+        if (rst.next()) {
             Reservation reservation = new Reservation(
                 rst.getString("reservation_id"),
                 rst.getString("customer_nic"),
@@ -88,7 +88,9 @@ public class ReservationDAOImpl implements ReservationDAO {
                 rst.getString("return_time"),
                 rst.getString("is_driver_want")
             );
-        return reservation;
+            return reservation;
+        }
+        return null;
     }
 
     @Override

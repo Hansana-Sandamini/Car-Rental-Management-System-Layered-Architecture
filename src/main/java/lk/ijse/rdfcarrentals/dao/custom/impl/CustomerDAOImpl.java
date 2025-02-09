@@ -70,7 +70,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer search(String selectedCustomerNIC) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE nic = ?", selectedCustomerNIC);
-        rst.next();
+        if (rst.next()) {
             Customer customer = new Customer(
                     rst.getString("nic"),
                     rst.getString("name"),
@@ -78,8 +78,10 @@ public class CustomerDAOImpl implements CustomerDAO {
                     rst.getString("email"),
                     rst.getString("contact_number")
             );
-        return customer;
+            return customer;
         }
+        return null;
+    }
 
     @Override
     public ArrayList<String> loadAllIDs() throws SQLException, ClassNotFoundException {

@@ -2,6 +2,7 @@ package lk.ijse.rdfcarrentals.entity;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Getter
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Driver {
+public class Driver implements Serializable {
     private String nic;
     private String name;
     private String email;
