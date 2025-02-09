@@ -14,12 +14,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
-import lk.ijse.rdfcarrentals.bo.custom.CreditBO;
-import lk.ijse.rdfcarrentals.bo.custom.CustomerBO;
-import lk.ijse.rdfcarrentals.bo.custom.ReservationBO;
+import lk.ijse.rdfcarrentals.bo.custom.*;
 import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
+import lk.ijse.rdfcarrentals.dto.BillDTO;
 import lk.ijse.rdfcarrentals.dto.CreditDTO;
 import lk.ijse.rdfcarrentals.entity.Customer;
 import lk.ijse.rdfcarrentals.entity.Reservation;
@@ -102,13 +100,12 @@ public class CreditsFormController implements Initializable {
     @FXML
     private Button btnViewBill;
 
-//    private final BillModel billModel = new BillModel();
-
     private static boolean isDarkMode = false;
 
     CreditBO creditBO = (CreditBO) BOFactory.getInstance().getBO(BOFactory.BOType.CREDIT);
     CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOType.CUSTOMER);
     ReservationBO reservationBO = (ReservationBO) BOFactory.getInstance().getBO(BOFactory.BOType.RESERVATION);
+    BillBO billBO = (BillBO) BOFactory.getInstance().getBO(BOFactory.BOType.BILL);
 
     @FXML
     void darkModeIconOnAction(MouseEvent event) {
@@ -131,7 +128,7 @@ public class CreditsFormController implements Initializable {
             try {
                 CreditDTO creditDTO = getTextFieldsValues();
                 creditBO.saveCredit(creditDTO);
-//                billModel.saveBill(new BillDTO(lblBillID.getText(), null, lblCreditID.getText(), "", LocalDate.now()));
+                billBO.saveBill(new BillDTO(lblBillID.getText(), null, lblCreditID.getText(), "", LocalDate.now()));
                 new Alert(Alert.AlertType.INFORMATION, "Credit Saved...!").show();
                 refreshPage();
             } catch (Exception e) {
@@ -391,7 +388,7 @@ public class CreditsFormController implements Initializable {
         txtFldAmountPaid.setText("");
         txtFldAmountToPay.setText("");
         txtDueDate.setValue(null);
-//        lblBillID.setText(billModel.getNextBillId());
+        lblBillID.setText(billBO.getNextBillId());
     }
 
     private void refreshTable() throws SQLException, ClassNotFoundException {

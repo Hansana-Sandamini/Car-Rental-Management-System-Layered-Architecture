@@ -15,10 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
+import lk.ijse.rdfcarrentals.bo.custom.BillBO;
 import lk.ijse.rdfcarrentals.bo.custom.PaymentBO;
 import lk.ijse.rdfcarrentals.bo.custom.ReservationBO;
 import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
+import lk.ijse.rdfcarrentals.dto.BillDTO;
 import lk.ijse.rdfcarrentals.dto.PaymentDTO;
 import lk.ijse.rdfcarrentals.dto.ReservationDTO;
 import lk.ijse.rdfcarrentals.entity.Reservation;
@@ -99,12 +101,12 @@ public class PaymentsFormController implements Initializable {
     private FontAwesomeIcon searchIcon;
 
     private final ObservableList<PaymentTM> paymentTMS = FXCollections.observableArrayList();
-//    private final BillModel billModel = new BillModel();
 
     private static boolean isDarkMode = false;
 
     PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
     ReservationBO reservationBO = (ReservationBO) BOFactory.getInstance().getBO(BOFactory.BOType.RESERVATION);
+    BillBO billBO = (BillBO) BOFactory.getInstance().getBO(BOFactory.BOType.BILL);
 
     @FXML
     void darkModeIconOnAction(MouseEvent event) {
@@ -122,7 +124,7 @@ public class PaymentsFormController implements Initializable {
             try {
                 PaymentDTO paymentDTO = getTextFieldsValues();
                 paymentBO.savePayment(paymentDTO);
-//                billModel.saveBill(new BillDTO(lblBillID.getText(), lblPaymentID.getText(), null, "", LocalDate.now()));
+                billBO.saveBill(new BillDTO(lblBillID.getText(), lblPaymentID.getText(), null, "", LocalDate.now()));
                 new Alert(Alert.AlertType.INFORMATION, "Payment Added...!").show();
                 refreshPage();
             } catch (Exception e) {
@@ -299,7 +301,7 @@ public class PaymentsFormController implements Initializable {
 
         lblPaymentID.setText(paymentBO.getNextPaymentId());
         cmbReservationID.setValue("");
-//        lblBillID.setText(billModel.getNextBillId());
+        lblBillID.setText(billBO.getNextBillId());
         txtFldPaymentMethod.setText("");
         txtFldAmount.setText("");
         txtDate.setValue(null);
