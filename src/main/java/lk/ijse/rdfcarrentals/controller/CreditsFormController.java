@@ -1,5 +1,6 @@
 package lk.ijse.rdfcarrentals.controller;
 
+import lk.ijse.rdfcarrentals.db.DBConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
