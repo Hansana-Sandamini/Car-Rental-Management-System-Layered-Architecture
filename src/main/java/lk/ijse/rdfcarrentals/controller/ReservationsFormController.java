@@ -21,7 +21,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lk.ijse.rdfcarrentals.bo.custom.*;
 import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
-import lk.ijse.rdfcarrentals.dao.SQLUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
 import lk.ijse.rdfcarrentals.dto.*;
 import lk.ijse.rdfcarrentals.entity.Car;
@@ -32,7 +31,6 @@ import lk.ijse.rdfcarrentals.view.tdm.ReservationTM;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -391,25 +389,6 @@ public class ReservationsFormController implements Initializable {
             reservationTMS.add(reservationTM);
         }
         tblReservations.setItems(reservationTMS);
-    }
-
-    public static int getYearTotalSaleAmount() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute(
-                "SELECT " +
-                        "MONTH(r.pick_up_date) AS month, " +
-                        "COALESCE(SUM(p.amount), 0) + COALESCE(SUM(CASE WHEN c.amount_to_pay = 0 THEN c.total_amount ELSE 0 END), 0) AS monthly_income " +
-                        "FROM reservation r " +
-                        "LEFT JOIN payment p ON r.reservation_id = p.reservation_id " +
-                        "LEFT JOIN credit c ON r.reservation_id = c.reservation_id " +
-                        "GROUP BY MONTH(r.pick_up_date) " +
-                        "ORDER BY MONTH(r.pick_up_date)"
-        );
-
-        int totalIncome = 0;
-        while (resultSet.next()) {
-            totalIncome += resultSet.getInt("monthly_income");
-        }
-        return totalIncome;
     }
 
 }

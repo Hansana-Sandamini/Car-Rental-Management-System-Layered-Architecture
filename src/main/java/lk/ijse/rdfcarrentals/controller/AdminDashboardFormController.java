@@ -96,7 +96,7 @@ public class AdminDashboardFormController implements Initializable {
 //            lblTotalSales.setText(reservationModel.getMonthlySales() + " Sales");
 //            lblCreditNotPaid.setText(creditModel.getCreditNotPaidCount() + " Sales");
             setTopProducts();
-//            lblRev.setText("Rs " + ReservationsFormController.getYearTotalSaleAmount() + ".00");
+            lblRev.setText("Rs " + queryDAO.getYearTotalSaleAmount() + ".00");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

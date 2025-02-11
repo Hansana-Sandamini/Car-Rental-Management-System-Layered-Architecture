@@ -9,4 +9,5 @@ import java.util.ArrayList;
 public interface QueryDAO extends SuperDAO {
     ObservableList<Double> getIncomeMonthly() throws SQLException, ClassNotFoundException;
     ArrayList<String> getTopProducts() throws SQLException, ClassNotFoundException;
+    int getYearTotalSaleAmount() throws SQLException, ClassNotFoundException;
 }
