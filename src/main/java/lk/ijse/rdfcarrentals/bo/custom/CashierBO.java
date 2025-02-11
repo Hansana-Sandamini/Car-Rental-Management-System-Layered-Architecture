@@ -13,4 +13,5 @@ public interface CashierBO {
     Cashier searchCashier(String selectedCashierUsername) throws SQLException, ClassNotFoundException;
     void deleteCashier(String selectedCashier) throws SQLException, ClassNotFoundException;
     ArrayList<String> loadAllCashierUsernames() throws SQLException, ClassNotFoundException;
+    Cashier login(String username, String password) throws SQLException, ClassNotFoundException;
 }

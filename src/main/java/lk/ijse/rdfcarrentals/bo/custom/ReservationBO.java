@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface ReservationBO {
     ArrayList<ReservationDTO> getAllReservations() throws SQLException, ClassNotFoundException;
-    void saveReservation(ReservationDTO reservationDTO) throws SQLException, ClassNotFoundException;
+    boolean saveReservation(ReservationDTO reservationDTO) throws SQLException, ClassNotFoundException;
     String getNextReservationId() throws SQLException, ClassNotFoundException;
     ArrayList<String> getAllReservationIDS() throws SQLException, ClassNotFoundException;
     Reservation searchReservation(String selectedReservationID) throws SQLException, ClassNotFoundException;

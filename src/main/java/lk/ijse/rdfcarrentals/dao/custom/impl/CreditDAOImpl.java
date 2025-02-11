@@ -29,8 +29,8 @@ public class CreditDAOImpl implements CreditDAO {
     }
 
     @Override
-    public void save(Credit credit) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Credit credit) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO credit VALUES (?,?,?,?,?,?)",
                 credit.getCreditId(),
                 credit.getReservationId(),
@@ -57,11 +57,6 @@ public class CreditDAOImpl implements CreditDAO {
     @Override
     public void delete(String selectedCredit) throws SQLException, ClassNotFoundException {
         SQLUtil.execute("DELETE FROM credit WHERE credit_id = ?", selectedCredit);
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

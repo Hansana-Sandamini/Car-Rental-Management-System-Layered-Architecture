@@ -1,6 +1,5 @@
 package lk.ijse.rdfcarrentals.controller;
 
-import lk.ijse.rdfcarrentals.db.DBConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -23,14 +22,12 @@ import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
 import lk.ijse.rdfcarrentals.dto.BillDTO;
 import lk.ijse.rdfcarrentals.dto.PaymentDTO;
-import lk.ijse.rdfcarrentals.dto.ReservationDTO;
 import lk.ijse.rdfcarrentals.entity.Reservation;
 import lk.ijse.rdfcarrentals.view.tdm.PaymentTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -122,13 +119,15 @@ public class PaymentsFormController implements Initializable {
     @FXML
     void btnAddPaymentOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (validateTextFields()) {
-            try {
-                PaymentDTO paymentDTO = getTextFieldsValues();
-                paymentBO.savePayment(paymentDTO);
+            PaymentDTO paymentDTO = getTextFieldsValues();
+
+            boolean isAdded = paymentBO.savePayment(paymentDTO);
+
+            if (isAdded) {
                 billBO.saveBill(new BillDTO(lblBillID.getText(), lblPaymentID.getText(), null, "", LocalDate.now()));
                 new Alert(Alert.AlertType.INFORMATION, "Payment Added...!").show();
                 refreshPage();
-            } catch (Exception e) {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to Add Payment...!").show();
             }
         }

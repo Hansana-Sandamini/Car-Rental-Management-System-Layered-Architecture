@@ -31,8 +31,8 @@ public class CustomerBOImpl implements CustomerBO, SuperBO {
     }
 
     @Override
-    public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        customerDAO.save(new Customer(
+    public boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return customerDAO.save(new Customer(
                 customerDTO.getNic(),
                 customerDTO.getName(),
                 customerDTO.getAddress(),

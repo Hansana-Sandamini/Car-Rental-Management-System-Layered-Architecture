@@ -31,8 +31,8 @@ public class CarDAOImpl implements CarDAO {
     }
 
     @Override
-    public void save(Car car) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Car car) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO car VALUES (?,?,?,?,?,?,?)",
                 car.getLicensePlateNo(),
                 car.getModel(),
@@ -61,11 +61,6 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public void delete(String selectedCar) throws SQLException, ClassNotFoundException {
         SQLUtil.execute("DELETE FROM car WHERE license_plate_no = ?", selectedCar);
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override
@@ -106,5 +101,10 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public String getLastID() throws SQLException, ClassNotFoundException {
         return "";
+    }
+
+    @Override
+    public boolean updateCarAvailability(String licensePlateNo, String status) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("UPDATE car SET availability_status = ? WHERE license_plate_no = ?", status, licensePlateNo);
     }
 }

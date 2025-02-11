@@ -1,6 +1,5 @@
 package lk.ijse.rdfcarrentals.bo.custom;
 
-import lk.ijse.rdfcarrentals.dto.FuelTypeDTO;
 import lk.ijse.rdfcarrentals.entity.FuelType;
 
 import java.sql.SQLException;

@@ -67,4 +67,13 @@ public class CashierBOImpl implements CashierBO, SuperBO {
         return cashierDAO.loadAllIDs();
     }
 
+    @Override
+    public Cashier login(String username, String password) throws SQLException, ClassNotFoundException {
+        Cashier cashier = cashierDAO.getCashierByUsername(username);
+        if (cashier != null && cashier.getPassword().equals(password)) {
+            return cashier;
+        }
+        return null;
+    }
+
 }

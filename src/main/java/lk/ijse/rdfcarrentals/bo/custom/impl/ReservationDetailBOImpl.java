@@ -41,7 +41,11 @@ public class ReservationDetailBOImpl implements ReservationDetailBO, SuperBO {
     }
 
     @Override
-    public void saveReservationDetailList(ArrayList<ReservationDetail> reservationDetails) throws SQLException, ClassNotFoundException {
-
+    public boolean saveReservationDetailList(ArrayList<ReservationDetail> reservationDetails) throws SQLException, ClassNotFoundException {
+        for (ReservationDetail reservationDetail : reservationDetails) {
+            reservationDetailDAO.save(reservationDetail);
+        }
+        return true;
     }
+
 }

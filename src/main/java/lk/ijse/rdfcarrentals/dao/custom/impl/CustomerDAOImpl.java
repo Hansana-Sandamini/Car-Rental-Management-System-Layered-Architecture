@@ -29,8 +29,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void save(Customer customer) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Customer customer) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO customer VALUES (?,?,?,?,?)",
                 customer.getNic(),
                 customer.getName(),
@@ -55,11 +55,6 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void delete(String selectedCustomer) throws SQLException, ClassNotFoundException {
         SQLUtil.execute("DELETE FROM customer WHERE nic = ?", selectedCustomer);
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

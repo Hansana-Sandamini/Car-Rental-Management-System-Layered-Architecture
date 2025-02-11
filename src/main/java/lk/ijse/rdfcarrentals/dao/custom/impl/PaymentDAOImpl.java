@@ -29,8 +29,8 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public void save(Payment payment) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Payment payment) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO payment VALUES (?,?,?,?,?,?)",
                 payment.getPaymentId(),
                 payment.getReservationId(),
@@ -48,11 +48,6 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public void delete(String selectedPayment) throws SQLException, ClassNotFoundException {
         SQLUtil.execute("DELETE FROM payment WHERE payment_id = ?", selectedPayment);
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

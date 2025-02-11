@@ -16,8 +16,8 @@ public class BillDAOImpl implements BillDAO {
     }
 
     @Override
-    public void save(Bill bill) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Bill bill) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO bill VALUES (?,?,?,?,?)",
                 bill.getBillId(),
                 bill.getPaymentId(),
@@ -33,11 +33,6 @@ public class BillDAOImpl implements BillDAO {
 
     @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

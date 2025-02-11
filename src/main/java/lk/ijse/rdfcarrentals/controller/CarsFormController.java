@@ -125,15 +125,15 @@ public class CarsFormController implements Initializable {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        if (validateTextFields()) {
-            try {
-                CarDTO carDTO = getTextFieldsValues();
-                carBO.saveCar(carDTO);
-                new Alert(Alert.AlertType.INFORMATION, "Car Saved...!").show();
-                refreshPage();
-            } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Fail to Save Car...!").show();
-            }
+        CarDTO carDTO = getTextFieldsValues();
+
+        boolean isSaved = carBO.saveCar(carDTO);
+
+        if (isSaved) {
+            new Alert(Alert.AlertType.INFORMATION, "Car Saved...!").show();
+            refreshPage();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Fail to Save Car...!").show();
         }
     }
 
@@ -165,17 +165,6 @@ public class CarsFormController implements Initializable {
             txtFldTypeName.setText(fuelType.getTypeName());
         }
     }
-
-//    @FXML
-//    void cmbTypeIDOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-//        String selectedTypeId = cmbTypeID.getSelectionModel().getSelectedItem();
-//        FuelType fuelType = fuelTypeBO.searchFuelType(selectedTypeId);
-//
-//        if (fuelType != null) {
-//            FuelTypeDTO fuelTypeDTO = new FuelTypeDTO(fuelType.getTypeId(), fuelType.getTypeName());
-//            txtFldTypeName.setText(fuelTypeDTO.getTypeName());
-//        }
-//    }
 
     private void loadFuelTypeIds() throws SQLException, ClassNotFoundException {
         ArrayList<String> fuelTypeIds = fuelTypeBO.loadAllFuelTypeIds();

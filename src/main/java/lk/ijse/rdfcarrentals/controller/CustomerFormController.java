@@ -102,12 +102,14 @@ public class CustomerFormController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (validateTextFields()) {
-            try {
-                CustomerDTO customerDTO = getTextFieldsValues();
-                customerBO.saveCustomer(customerDTO);
+            CustomerDTO customerDTO = getTextFieldsValues();
+
+            boolean isSaved = customerBO.saveCustomer(customerDTO);
+
+            if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Customer Saved...!").show();
                 refreshPage();
-            } catch (Exception e) {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to Save Customer...!").show();
             }
         }

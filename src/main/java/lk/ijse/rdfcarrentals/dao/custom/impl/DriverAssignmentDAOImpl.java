@@ -31,8 +31,8 @@ public class DriverAssignmentDAOImpl implements DriverAssignmentDAO {
     }
 
     @Override
-    public void save(DriverAssignment driverAssignment) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(DriverAssignment driverAssignment) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO driver_assignment VALUES (?,?,?,?,?)",
                 driverAssignment.getLicensePlateNo(),
                 driverAssignment.getDriverNic(),
@@ -48,11 +48,6 @@ public class DriverAssignmentDAOImpl implements DriverAssignmentDAO {
 
     @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override
@@ -73,5 +68,18 @@ public class DriverAssignmentDAOImpl implements DriverAssignmentDAO {
     @Override
     public String getLastID() throws SQLException, ClassNotFoundException {
         return "";
+    }
+
+    @Override
+    public String getDriverNicByLicensePlate(String licensePlateNo) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute(
+                "SELECT driver_nic FROM driver_assignment WHERE license_plate_no = ?",
+                licensePlateNo
+        );
+
+        if (rst.next()) {
+            return rst.getString("driver_nic");
+        }
+        return null;
     }
 }

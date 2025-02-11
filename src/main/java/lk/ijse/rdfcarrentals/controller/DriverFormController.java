@@ -24,7 +24,6 @@ import lk.ijse.rdfcarrentals.bo.custom.CarBO;
 import lk.ijse.rdfcarrentals.bo.custom.DriverBO;
 import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
-import lk.ijse.rdfcarrentals.dto.DriverAssignmentDTO;
 import lk.ijse.rdfcarrentals.dto.DriverDTO;
 import lk.ijse.rdfcarrentals.entity.Car;
 import lk.ijse.rdfcarrentals.entity.DriverAssignment;

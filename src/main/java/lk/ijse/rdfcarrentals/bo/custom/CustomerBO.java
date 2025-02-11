@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface CustomerBO {
     ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException;
-    void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
+    boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
     void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
     ArrayList<String> getAllCustomerNICs() throws SQLException, ClassNotFoundException;
     Customer searchCustomer(String selectedCustomerNIC) throws SQLException, ClassNotFoundException;

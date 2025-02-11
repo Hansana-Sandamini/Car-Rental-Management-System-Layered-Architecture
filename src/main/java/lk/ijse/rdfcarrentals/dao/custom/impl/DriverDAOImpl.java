@@ -30,8 +30,8 @@ public class DriverDAOImpl implements DriverDAO {
     }
 
     @Override
-    public void save(Driver driver) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Driver driver) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO driver VALUES (?,?,?,?,?,?)",
                 driver.getNic(),
                 driver.getName(),
@@ -61,11 +61,6 @@ public class DriverDAOImpl implements DriverDAO {
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
     public String generateID() throws SQLException, ClassNotFoundException {
         return "";
     }
@@ -83,5 +78,16 @@ public class DriverDAOImpl implements DriverDAO {
     @Override
     public String getLastID() throws SQLException, ClassNotFoundException {
         return "";
+    }
+
+    @Override
+    public boolean updateDriverAvailability(String nic, String status) throws SQLException, ClassNotFoundException {
+        try {
+            return SQLUtil.execute("UPDATE `driver` SET availability_status = ? WHERE nic = ?", status, nic);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+
+        }
     }
 }

@@ -9,10 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.rdfcarrentals.dao.SQLUtil;
+import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
+import lk.ijse.rdfcarrentals.bo.custom.CashierBO;
+import lk.ijse.rdfcarrentals.dao.custom.impl.CashierDAOImpl;
+import lk.ijse.rdfcarrentals.entity.Cashier;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CashierLoginFormController {
@@ -35,6 +37,9 @@ public class CashierLoginFormController {
     public static String userName;
     public static String name;
 
+    CashierBO cashierBO = (CashierBO) BOFactory.getInstance().getBO(BOFactory.BOType.CASHIER);
+    CashierDAOImpl cashierDAO = new CashierDAOImpl();
+
     @FXML
     void btnCashierLoginOnAction(ActionEvent event) throws IOException {
         login();
@@ -42,23 +47,25 @@ public class CashierLoginFormController {
 
     private void login() {
         try {
-            ResultSet resultSet = SQLUtil.execute("SELECT * FROM cashier WHERE username=?",txtFldCashierUserName.getText());
-            if (resultSet.next()){
+            Cashier cashier = cashierBO.login(txtFldCashierUserName.getText(), txtFldCashierPassword.getText());
+
+            if (cashier != null) {
+                userName = cashier.getUserName();
+                name = cashier.getName();
                 txtFldCashierUserName.setStyle(";-fx-border-color: #7367F0;");
-                if (resultSet.getString(2).equals(txtFldCashierPassword.getText())){
-                    txtFldCashierPassword.setStyle(";-fx-border-color: #7367F0;");
-                    userName = resultSet.getString(1);
-                    name = resultSet.getString(3);
-                    cashierLoginPane.getChildren().clear();
-                    AnchorPane load = FXMLLoader.load(getClass().getResource("/view/CashierDashboardMenuForm.fxml"));
-                    cashierLoginPane.getChildren().add(load);
-                }else {
+                txtFldCashierPassword.setStyle(";-fx-border-color: #7367F0;");
+                cashierLoginPane.getChildren().clear();
+                AnchorPane load = FXMLLoader.load(getClass().getResource("/view/CashierDashboardMenuForm.fxml"));
+                cashierLoginPane.getChildren().add(load);
+            } else {
+                Cashier cashierFromDB = cashierDAO.getCashierByUsername(txtFldCashierUserName.getText());
+                if (cashierFromDB == null) {
+                    txtFldCashierUserName.setStyle(";-fx-border-color: red;");
+                    new Alert(Alert.AlertType.ERROR, "Wrong Username. Please Try Again...!").show();
+                } else {
                     txtFldCashierPassword.setStyle(";-fx-border-color: red;");
                     new Alert(Alert.AlertType.ERROR, "Wrong Password. Please Try Again...!").show();
                 }
-            }else {
-                txtFldCashierUserName.setStyle(";-fx-border-color: red;");
-                new Alert(Alert.AlertType.ERROR, "Wrong Username. Please Try Again...!").show();
             }
         } catch (SQLException | IOException e) {
             e.printStackTrace();

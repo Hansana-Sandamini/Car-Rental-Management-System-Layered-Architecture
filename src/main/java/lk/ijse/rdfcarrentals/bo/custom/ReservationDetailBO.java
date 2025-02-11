@@ -9,5 +9,5 @@ import java.util.ArrayList;
 public interface ReservationDetailBO {
     ArrayList<ReservationDetailDTO> getReservationDetails() throws SQLException, ClassNotFoundException;
     void saveReservationDetail(ReservationDetailDTO reservationDetailDTO) throws SQLException, ClassNotFoundException;
-    void saveReservationDetailList(ArrayList<ReservationDetail> reservationDetails) throws SQLException, ClassNotFoundException;
+    boolean saveReservationDetailList(ArrayList<ReservationDetail> reservationDetails) throws SQLException, ClassNotFoundException;
 }

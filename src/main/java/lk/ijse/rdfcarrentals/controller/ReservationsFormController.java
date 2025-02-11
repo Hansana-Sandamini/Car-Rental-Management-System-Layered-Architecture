@@ -23,9 +23,7 @@ import lk.ijse.rdfcarrentals.bo.custom.*;
 import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
 import lk.ijse.rdfcarrentals.dao.ValidationUtil;
 import lk.ijse.rdfcarrentals.dto.*;
-import lk.ijse.rdfcarrentals.entity.Car;
-import lk.ijse.rdfcarrentals.entity.Cashier;
-import lk.ijse.rdfcarrentals.entity.Customer;
+import lk.ijse.rdfcarrentals.entity.*;
 import lk.ijse.rdfcarrentals.view.tdm.ReservationTM;
 
 import java.io.IOException;
@@ -144,14 +142,16 @@ public class ReservationsFormController implements Initializable {
     }
 
     @FXML
-    void btnAddReservationOnAction(ActionEvent event) throws SQLException {
+    void btnAddReservationOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (validateTextFields()) {
-            try {
-                ReservationDTO reservationDTO = getTextFieldsValues();
-                reservationBO.saveReservation(reservationDTO);
+            ReservationDTO reservationDTO = getTextFieldsValues();
+
+            boolean isAdded = reservationBO.saveReservation(reservationDTO);
+
+            if (isAdded) {
                 new Alert(Alert.AlertType.INFORMATION, "Reservation Added...!").show();
                 refreshPage();
-            } catch (Exception e) {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to Add Reservation...!").show();
             }
         }
@@ -170,12 +170,12 @@ public class ReservationsFormController implements Initializable {
         Double driverCost = Double.valueOf(txtDriverCost.getText());
         Double totalAmount = Double.valueOf(txtTotalAmount.getText());
 
-        ReservationDetailDTO reservationDetailDTO = new ReservationDetailDTO(
+        ReservationDetail reservationDetail = new ReservationDetail(
                 reservationId, licensePlateNo, driverCost, totalAmount
         );
-        ArrayList<ReservationDetailDTO> reservationDetailDTOS = new ArrayList<>(Collections.singletonList(reservationDetailDTO));
+        ArrayList<ReservationDetail> reservationDetails = new ArrayList<>(Collections.singletonList(reservationDetail));
 
-        return new ReservationDTO(reservationId, customerNic, cashierUsername, pickUpDate, pickUpTime, returnDate, returnTime, isDriverWant, reservationDetailDTOS);
+        return new ReservationDTO(reservationId, customerNic, cashierUsername, pickUpDate, pickUpTime, returnDate, returnTime, isDriverWant, reservationDetails);
     }
 
     boolean validateTextFields() {

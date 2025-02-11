@@ -122,15 +122,17 @@ public class CreditsFormController implements Initializable {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws SQLException {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (validateTextFields()) {
-            try {
-                CreditDTO creditDTO = getTextFieldsValues();
-                creditBO.saveCredit(creditDTO);
+            CreditDTO creditDTO = getTextFieldsValues();
+
+            boolean isSaved = creditBO.saveCredit(creditDTO);
+
+            if (isSaved) {
                 billBO.saveBill(new BillDTO(lblBillID.getText(), null, lblCreditID.getText(), "", LocalDate.now()));
                 new Alert(Alert.AlertType.INFORMATION, "Credit Saved...!").show();
                 refreshPage();
-            } catch (Exception e) {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to Save Credit...!").show();
             }
         }

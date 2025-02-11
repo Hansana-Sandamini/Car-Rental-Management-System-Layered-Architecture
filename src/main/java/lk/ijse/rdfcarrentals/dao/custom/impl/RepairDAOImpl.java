@@ -29,8 +29,8 @@ public class RepairDAOImpl implements RepairDAO {
     }
 
     @Override
-    public void save(Repair repair) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(Repair repair) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO repair VALUES (?,?,?,?,?)",
                 repair.getRepairId(),
                 repair.getDescription(),
@@ -47,11 +47,6 @@ public class RepairDAOImpl implements RepairDAO {
     @Override
     public void delete(String selectedRepair) throws SQLException, ClassNotFoundException {
         SQLUtil.execute("DELETE FROM repair WHERE repair_id = ?", selectedRepair);
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

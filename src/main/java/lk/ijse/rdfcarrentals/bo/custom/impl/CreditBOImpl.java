@@ -38,8 +38,8 @@ public class CreditBOImpl implements CreditBO, SuperBO {
     }
 
     @Override
-    public void saveCredit(CreditDTO creditDTO) throws SQLException, ClassNotFoundException {
-        creditDAO.save(new Credit(
+    public boolean saveCredit(CreditDTO creditDTO) throws SQLException, ClassNotFoundException {
+        return creditDAO.save(new Credit(
                 creditDTO.getCreditId(),
                 creditDTO.getReservationId(),
                 creditDTO.getTotalAmount(),

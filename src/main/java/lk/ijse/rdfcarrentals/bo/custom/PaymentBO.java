@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface PaymentBO {
     ArrayList<PaymentDTO> getAllPayments() throws SQLException, ClassNotFoundException;
-    void savePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException;
+    boolean savePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException;
     void deletePayment(String selectedPayment) throws SQLException, ClassNotFoundException;
     String getNextPaymentId() throws SQLException, ClassNotFoundException;
 }

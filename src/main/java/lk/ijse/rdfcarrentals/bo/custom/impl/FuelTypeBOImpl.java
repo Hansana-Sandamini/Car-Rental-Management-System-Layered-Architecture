@@ -4,7 +4,6 @@ import lk.ijse.rdfcarrentals.bo.custom.FuelTypeBO;
 import lk.ijse.rdfcarrentals.bo.custom.SuperBO;
 import lk.ijse.rdfcarrentals.dao.DAOFactory;
 import lk.ijse.rdfcarrentals.dao.custom.impl.FuelTypeDAOImpl;
-import lk.ijse.rdfcarrentals.dto.FuelTypeDTO;
 import lk.ijse.rdfcarrentals.entity.FuelType;
 
 import java.sql.SQLException;
@@ -23,16 +22,5 @@ public class FuelTypeBOImpl implements FuelTypeBO, SuperBO {
     public FuelType searchFuelType(String selectedTypeId) throws SQLException, ClassNotFoundException {
         return fuelTypeDAO.search(selectedTypeId);
     }
-
-
-//    public FuelTypeDTO searchFuelType(String selectedTypeId) throws SQLException, ClassNotFoundException {
-//        FuelType fuelType = fuelTypeDAO.search(selectedTypeId);
-//
-//        if (fuelType != null) {
-//            return new FuelTypeDTO(fuelType.getTypeId(), fuelType.getTypeName());
-//        } else {
-//            return null;
-//        }
-//    }
 
 }

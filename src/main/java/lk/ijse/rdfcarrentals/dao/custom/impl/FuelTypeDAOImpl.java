@@ -16,7 +16,8 @@ public class FuelTypeDAOImpl implements FuelTypeDAO {
     }
 
     @Override
-    public void save(FuelType cashierDTO) throws SQLException, ClassNotFoundException {
+    public boolean save(FuelType cashierDTO) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
     @Override
@@ -25,11 +26,6 @@ public class FuelTypeDAOImpl implements FuelTypeDAO {
 
     @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

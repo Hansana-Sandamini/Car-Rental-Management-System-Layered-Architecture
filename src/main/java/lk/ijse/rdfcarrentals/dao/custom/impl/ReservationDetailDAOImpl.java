@@ -28,8 +28,8 @@ public class ReservationDetailDAOImpl implements ReservationDetailDAO {
     }
 
     @Override
-    public void save(ReservationDetail reservationDetail) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute(
+    public boolean save(ReservationDetail reservationDetail) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(
                 "INSERT INTO reservation_detail VALUES (?,?,?,?)",
                 reservationDetail.getReservationId(),
                 reservationDetail.getLicensePlateNo(),
@@ -44,11 +44,6 @@ public class ReservationDetailDAOImpl implements ReservationDetailDAO {
 
     @Override
     public void delete(String id) throws SQLException, ClassNotFoundException {
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override

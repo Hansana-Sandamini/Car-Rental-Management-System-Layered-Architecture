@@ -33,8 +33,8 @@ public class CarBOImpl implements CarBO, SuperBO {
     }
 
     @Override
-    public void saveCar(CarDTO carDTO) throws SQLException, ClassNotFoundException {
-        carDAO.save(new Car(
+    public boolean saveCar(CarDTO carDTO) throws SQLException, ClassNotFoundException {
+        return carDAO.save(new Car(
                 carDTO.getLicensePlateNo(),
                 carDTO.getModel(),
                 carDTO.getColour(),
@@ -48,13 +48,6 @@ public class CarBOImpl implements CarBO, SuperBO {
     @Override
     public void updateCar(CarDTO carDTO) throws SQLException, ClassNotFoundException {
         carDAO.update(new Car(
-//                carDTO.getTypeId(),
-//                carDTO.getModel(),
-//                carDTO.getColour(),
-//                carDTO.getDailyRate(),
-//                carDTO.getMonthlyRate(),
-//                carDTO.getLicensePlateNo(),
-//                carDTO.getAvailabilityStatus()
                 carDTO.getLicensePlateNo(),
                 carDTO.getModel(),
                 carDTO.getColour(),

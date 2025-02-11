@@ -32,8 +32,8 @@ public class PaymentBOImpl implements PaymentBO, SuperBO {
     }
 
     @Override
-    public void savePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
-        paymentDAO.save(new Payment(
+    public boolean savePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+        return paymentDAO.save(new Payment(
                 paymentDTO.getPaymentId(),
                 paymentDTO.getReservationId(),
                 paymentDTO.getPaymentMethod(),

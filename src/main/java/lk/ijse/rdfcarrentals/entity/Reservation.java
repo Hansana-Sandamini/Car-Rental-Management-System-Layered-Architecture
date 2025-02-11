@@ -1,6 +1,5 @@
 package lk.ijse.rdfcarrentals.entity;
 
-import lk.ijse.rdfcarrentals.dto.ReservationDetailDTO;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,9 +22,9 @@ public class Reservation implements Serializable {
     private String isDriverWant;
     private String driverNic;
 
-    private ArrayList<ReservationDetailDTO> reservationDetailDTOS;
+    private ArrayList<ReservationDetail> reservationDetails;
 
-    public Reservation(String reservationId, String customerNic, String  cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant) {
+    public Reservation(String reservationId, String customerNic, String  cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant, ArrayList<ReservationDetail> reservationDetails) {
         this.reservationId = reservationId;
         this.customerNic = customerNic;
         this.cashierUsername = cashierUsername;
@@ -34,9 +33,10 @@ public class Reservation implements Serializable {
         this.returnDate = returnDate;
         this.returnTime = returnTime;
         this.isDriverWant = isDriverWant;
+        this.reservationDetails = reservationDetails;
     }
 
-    public Reservation(String reservationId, String customerNic, String cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant, ArrayList<ReservationDetailDTO> reservationDetailDTOS) {
+    public Reservation(String reservationId, String customerNic, String cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant) {
         this.reservationId = reservationId;
         this.customerNic = customerNic;
         this.cashierUsername = cashierUsername;
@@ -45,6 +45,5 @@ public class Reservation implements Serializable {
         this.returnDate = returnDate;
         this.returnTime = returnTime;
         this.isDriverWant = isDriverWant;
-        this.reservationDetailDTOS = reservationDetailDTOS;
     }
 }

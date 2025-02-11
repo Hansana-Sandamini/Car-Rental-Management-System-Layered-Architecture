@@ -1,5 +1,6 @@
 package lk.ijse.rdfcarrentals.dto;
 
+import lk.ijse.rdfcarrentals.entity.ReservationDetail;
 import lombok.*;
 
 import java.sql.Date;
@@ -21,9 +22,9 @@ public class ReservationDTO {
     private String isDriverWant;
     private String driverNic;
 
-    private ArrayList<ReservationDetailDTO> reservationDetailDTOS;
+    private ArrayList<ReservationDetail> reservationDetails;
 
-    public ReservationDTO(String reservationId, String customerNic, String  cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant) {
+    public ReservationDTO(String reservationId, String customerNic, String  cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant, ArrayList<ReservationDetail> reservationDetails) {
         this.reservationId = reservationId;
         this.customerNic = customerNic;
         this.cashierUsername = cashierUsername;
@@ -32,9 +33,10 @@ public class ReservationDTO {
         this.returnDate = returnDate;
         this.returnTime = returnTime;
         this.isDriverWant = isDriverWant;
+        this.reservationDetails = reservationDetails;
     }
 
-    public ReservationDTO(String reservationId, String customerNic, String cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant, ArrayList<ReservationDetailDTO> reservationDetailDTOS) {
+    public ReservationDTO(String reservationId, String customerNic, String cashierUsername, Date pickUpDate, String pickUpTime, Date returnDate, String returnTime, String isDriverWant) {
         this.reservationId = reservationId;
         this.customerNic = customerNic;
         this.cashierUsername = cashierUsername;
@@ -43,6 +45,5 @@ public class ReservationDTO {
         this.returnDate = returnDate;
         this.returnTime = returnTime;
         this.isDriverWant = isDriverWant;
-        this.reservationDetailDTOS = reservationDetailDTOS;
     }
 }
