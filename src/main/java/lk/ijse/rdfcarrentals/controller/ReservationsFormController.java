@@ -412,26 +412,4 @@ public class ReservationsFormController implements Initializable {
         return totalIncome;
     }
 
-    public static ObservableList<Double> getIncomeMonthly() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute(
-                "SELECT MONTH(r.pick_up_date) AS MONTH, " +
-                        "COALESCE(SUM(p.amount), 0) + COALESCE(SUM(CASE WHEN c.amount_to_pay = 0 THEN c.total_amount ELSE 0 END), 0) AS monthly_income " +
-                        "FROM reservation r " +
-                        "LEFT JOIN payment p ON r.reservation_id = p.reservation_id " +
-                        "LEFT JOIN credit c ON r.reservation_id = c.reservation_id " +
-                        "GROUP BY MONTH(r.pick_up_date) " +
-                        "ORDER BY MONTH(r.pick_up_date)"
-        );
-
-        Double[] incomeByMonth = new Double[12];
-        Arrays.fill(incomeByMonth, 0.0);
-
-        while (resultSet.next()) {
-            int month = resultSet.getInt("MONTH");
-            double income = resultSet.getDouble("monthly_income");
-            incomeByMonth[month - 1] = income;
-        }
-        return FXCollections.observableArrayList(Arrays.asList(incomeByMonth));
-    }
-
 }

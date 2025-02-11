@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.rdfcarrentals.dao.custom.QueryDAO;
+import lk.ijse.rdfcarrentals.dao.custom.impl.QueryDAOImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,6 +65,8 @@ public class AdminDashboardFormController implements Initializable {
 
     private static boolean isDarkMode = false;
 
+    QueryDAO queryDAO = new QueryDAOImpl();
+
     @FXML
     void darkModeIconOnAction(MouseEvent event) {
         if (!isDarkMode) {
@@ -86,8 +90,8 @@ public class AdminDashboardFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ClockUtil.startClock(lblDate, lblTime);
-//        loadChart();
-//
+        loadChart();
+
 //        try {
 //            lblTotalSales.setText(reservationModel.getMonthlySales() + " Sales");
 //            lblCreditNotPaid.setText(creditModel.getCreditNotPaidCount() + " Sales");
@@ -118,24 +122,24 @@ public class AdminDashboardFormController implements Initializable {
 //        top2.setText(products.get(1));
 //        top3.setText(products.get(2));
 //    }
-//
-//    private void loadChart() {
-//        loadChart(barChart);
-//    }
-//
-//    private void loadChart(BarChart barChart) {
-//        XYChart.Series series = new XYChart.Series();
-//        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-//
-//        try {
-//            int count = 0;
-//            for (Double income : ReservationsFormController.getIncomeMonthly()) {
-//                series.getData().add(new XYChart.Data(months[count++], income));
-//            }
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        barChart.getData().setAll(series);
-//        barChart.getXAxis().setTickLabelRotation(360);
-//    }
+
+    private void loadChart() {
+        loadChart(barChart);
+    }
+
+    private void loadChart(BarChart barChart) {
+        XYChart.Series series = new XYChart.Series();
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
+        try {
+            int count = 0;
+            for (Double income : queryDAO.getIncomeMonthly()) {
+                series.getData().add(new XYChart.Data(months[count++], income));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        barChart.getData().setAll(series);
+        barChart.getXAxis().setTickLabelRotation(360);
+    }
 }
