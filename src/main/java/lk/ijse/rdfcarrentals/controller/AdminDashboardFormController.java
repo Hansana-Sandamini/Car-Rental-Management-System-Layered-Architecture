@@ -93,7 +93,7 @@ public class AdminDashboardFormController implements Initializable {
         loadChart();
 
         try {
-//            lblTotalSales.setText(reservationModel.getMonthlySales() + " Sales");
+            lblTotalSales.setText(queryDAO.getMonthlySales() + " Sales");
 //            lblCreditNotPaid.setText(creditModel.getCreditNotPaidCount() + " Sales");
             setTopProducts();
             lblRev.setText("Rs " + queryDAO.getYearTotalSaleAmount() + ".00");

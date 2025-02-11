@@ -69,4 +69,16 @@ public class QueryDAOImpl implements QueryDAO {
         return totalIncome;
     }
 
+    @Override
+    public int getMonthlySales() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute(
+                "SELECT COUNT(reservation_id) AS sales_count FROM reservation " +
+                        "WHERE MONTH(pick_up_date) = MONTH(CURRENT_DATE()) AND YEAR(pick_up_date) = YEAR(CURRENT_DATE())"
+        );
+        if (rst.next()) {
+            return rst.getInt(1);
+        }
+        return 0;
+    }
+
 }
