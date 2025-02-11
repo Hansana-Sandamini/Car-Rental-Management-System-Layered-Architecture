@@ -81,4 +81,15 @@ public class QueryDAOImpl implements QueryDAO {
         return 0;
     }
 
+    @Override
+    public int getCreditNotPaidCount() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute(
+                "SELECT COUNT(credit_id) FROM credit WHERE amount_to_pay > 0"
+        );
+        if (rst.next()) {
+            return rst.getInt(1);
+        }
+        return 0;
+    }
+
 }

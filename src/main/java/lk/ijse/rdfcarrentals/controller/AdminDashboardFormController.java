@@ -60,9 +60,6 @@ public class AdminDashboardFormController implements Initializable {
     @FXML
     private BarChart<String, Number> barChart;
 
-//    private final ReservationModel reservationModel = new ReservationModel();
-//    private final CreditModel creditModel = new CreditModel();
-
     private static boolean isDarkMode = false;
 
     QueryDAO queryDAO = new QueryDAOImpl();
@@ -94,7 +91,7 @@ public class AdminDashboardFormController implements Initializable {
 
         try {
             lblTotalSales.setText(queryDAO.getMonthlySales() + " Sales");
-//            lblCreditNotPaid.setText(creditModel.getCreditNotPaidCount() + " Sales");
+            lblCreditNotPaid.setText(queryDAO.getCreditNotPaidCount() + " Sales");
             setTopProducts();
             lblRev.setText("Rs " + queryDAO.getYearTotalSaleAmount() + ".00");
         } catch (SQLException e) {

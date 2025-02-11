@@ -11,4 +11,5 @@ public interface QueryDAO extends SuperDAO {
     ArrayList<String> getTopProducts() throws SQLException, ClassNotFoundException;
     int getYearTotalSaleAmount() throws SQLException, ClassNotFoundException;
     int getMonthlySales() throws SQLException, ClassNotFoundException;
+    int getCreditNotPaidCount() throws SQLException, ClassNotFoundException;
 }
