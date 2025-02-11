@@ -11,12 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
 import lk.ijse.rdfcarrentals.bo.custom.ReservationDetailBO;
-import lk.ijse.rdfcarrentals.dao.SQLUtil;
 import lk.ijse.rdfcarrentals.dto.ReservationDetailDTO;
 import lk.ijse.rdfcarrentals.view.tdm.ReservationDetailTM;
 
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -73,15 +71,6 @@ public class ReservationDetailFormController implements Initializable {
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load Reservation Details: " + e.getMessage()).show();
         }
-    }
-
-    public static ArrayList<String> getTopProducts() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT c.model, COUNT(model) FROM car c LEFT JOIN reservation_detail rd ON c.license_plate_no = rd.license_plate_no GROUP BY model ORDER BY COUNT(model) DESC LIMIT 3;");
-        ArrayList<String> arrayList = new ArrayList();
-        while (resultSet.next()) {
-            arrayList.add(resultSet.getString(1));
-        }
-        return arrayList;
     }
 }
 

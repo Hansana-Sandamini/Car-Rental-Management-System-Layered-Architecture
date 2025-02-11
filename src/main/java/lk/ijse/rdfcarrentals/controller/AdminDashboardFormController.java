@@ -92,16 +92,16 @@ public class AdminDashboardFormController implements Initializable {
         ClockUtil.startClock(lblDate, lblTime);
         loadChart();
 
-//        try {
+        try {
 //            lblTotalSales.setText(reservationModel.getMonthlySales() + " Sales");
 //            lblCreditNotPaid.setText(creditModel.getCreditNotPaidCount() + " Sales");
-//            setTopProducts();
+            setTopProducts();
 //            lblRev.setText("Rs " + ReservationsFormController.getYearTotalSaleAmount() + ".00");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void navigateTo(String fxmlPath) {
@@ -115,13 +115,13 @@ public class AdminDashboardFormController implements Initializable {
         }
     }
 
-//    private void setTopProducts() throws SQLException, ClassNotFoundException {
-//        ArrayList<String> products = ReservationDetailFormController.getTopProducts();
-//
-//        top1.setText(products.get(0));
-//        top2.setText(products.get(1));
-//        top3.setText(products.get(2));
-//    }
+    private void setTopProducts() throws SQLException, ClassNotFoundException {
+        ArrayList<String> products = queryDAO.getTopProducts();
+
+        top1.setText(products.get(0));
+        top2.setText(products.get(1));
+        top3.setText(products.get(2));
+    }
 
     private void loadChart() {
         loadChart(barChart);

@@ -7,6 +7,7 @@ import lk.ijse.rdfcarrentals.dao.custom.QueryDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class QueryDAOImpl implements QueryDAO {
@@ -32,6 +33,20 @@ public class QueryDAOImpl implements QueryDAO {
             incomeByMonth[month - 1] = income;
         }
         return FXCollections.observableArrayList(Arrays.asList(incomeByMonth));
+    }
+
+    @Override
+    public ArrayList<String> getTopProducts() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute(
+                "SELECT c.model, COUNT(model) FROM car c " +
+                        "LEFT JOIN reservation_detail rd ON c.license_plate_no = rd.license_plate_no " +
+                        "GROUP BY model ORDER BY COUNT(model) DESC LIMIT 3;"
+        );
+        ArrayList<String> arrayList = new ArrayList();
+        while (rst.next()) {
+            arrayList.add(rst.getString(1));
+        }
+        return arrayList;
     }
 
 }
