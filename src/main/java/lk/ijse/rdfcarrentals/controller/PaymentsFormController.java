@@ -220,27 +220,20 @@ public class PaymentsFormController implements Initializable {
 
     @FXML
     void btnViewBillOnAction(ActionEvent event) {
+        generateBill("/reports/BillPayment.jrxml");
+    }
+
+    private void generateBill(String reportPath) {
         try {
-//            Connection connection = DBConnection.getInstance().getConnection();
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("p_Date", LocalDate.now().toString());
             parameters.put("p_Bill_Id", lblBillID.getText());
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/BillPayment.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
+            JasperPrint jasperPrint = billBO.generateBill(reportPath, parameters);
             JasperViewer.viewReport(jasperPrint, false);
 
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report!").show();
             e.printStackTrace();
         }
     }

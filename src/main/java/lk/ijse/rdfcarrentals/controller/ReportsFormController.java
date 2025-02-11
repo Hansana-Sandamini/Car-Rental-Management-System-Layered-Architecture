@@ -1,19 +1,19 @@
 package lk.ijse.rdfcarrentals.controller;
 
-import lk.ijse.rdfcarrentals.db.DBConnection;
+import javafx.scene.control.Alert;
+import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
+import lk.ijse.rdfcarrentals.bo.custom.ReportBO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -48,6 +48,8 @@ public class ReportsFormController implements Initializable {
 
     private static boolean isDarkMode = false;
 
+    ReportBO reportBO = (ReportBO) BOFactory.getInstance().getBO(BOFactory.BOType.REPORT);
+
     @FXML
     void darkModeIconOnAction(MouseEvent event) {
         if (!isDarkMode) {
@@ -59,131 +61,42 @@ public class ReportsFormController implements Initializable {
     }
 
     @FXML
-    void btnDurationReportGenerateOnAction(ActionEvent event) {
-        try {
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("p_Date", LocalDate.now().toString());
-            parameters.put("p_txtFrom", txtFrom.getValue());
-            parameters.put("p_txtTo", txtTo.getValue());
-
-//            Connection connection = DBConnection.getInstance().getConnection();
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/DurationReport.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                        jasperReport,
-                        parameters
-//                        connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-        }
+    void btnDurationReportGenerateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        generateReport("/reports/DurationReport.jrxml");
     }
 
     @FXML
-    void btnMonthOverviewGenerateOnAction(ActionEvent event) {
-        try {
-//            Connection connection = DBConnection.getInstance().getConnection();
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("p_Date", LocalDate.now().toString());
-
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/MonthOverview.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Monthly Overview Report..!").show();
-            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-        }
+    void btnMonthOverviewGenerateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        generateReport("/reports/MonthOverview.jrxml");
     }
 
     @FXML
-    void btnMonthReportGenerateOnAction(ActionEvent event) {
-        try {
-//            Connection connection = DBConnection.getInstance().getConnection();
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("p_Date", LocalDate.now().toString());
-
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/MonthReport.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-        }
+    void btnMonthReportGenerateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        generateReport("/reports/MonthReport.jrxml");
     }
 
     @FXML
-    void btnYearOverviewGenerateOnAction(ActionEvent event) {
-        try {
-//            Connection connection = DBConnection.getInstance().getConnection();
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("p_Date", LocalDate.now().toString());
-
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/YearOverview.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
-            JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate Yearly Overview Report.").show();
-            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-        }
+    void btnYearOverviewGenerateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        generateReport("/reports/YearOverview.jrxml");
     }
 
     @FXML
-    void btnYearReportGenerateOnAction(ActionEvent event) {
+    void btnYearReportGenerateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        generateReport("/reports/YearReport.jrxml");
+    }
+
+    private void generateReport(String reportPath) {
         try {
-//            Connection connection = DBConnection.getInstance().getConnection();
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("p_Date", LocalDate.now().toString());
+            if (txtFrom.getValue() != null) parameters.put("p_txtFrom", txtFrom.getValue().toString());
+            if (txtTo.getValue() != null) parameters.put("p_txtTo", txtTo.getValue().toString());
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/YearReport.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
+            JasperPrint jasperPrint = reportBO.generateReport(reportPath, parameters);
             JasperViewer.viewReport(jasperPrint, false);
 
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report!").show();
             e.printStackTrace();
         }
     }

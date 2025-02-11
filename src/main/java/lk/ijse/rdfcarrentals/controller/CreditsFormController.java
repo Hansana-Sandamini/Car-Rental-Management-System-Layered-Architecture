@@ -1,6 +1,5 @@
 package lk.ijse.rdfcarrentals.controller;
 
-import lk.ijse.rdfcarrentals.db.DBConnection;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -27,7 +26,6 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -191,31 +189,22 @@ public class CreditsFormController implements Initializable {
         cmbReservationID.setItems(observableList);
     }
 
-
     @FXML
     void btnViewBillOnAction(ActionEvent event) {
+        generateBill("/reports/BillCredits.jrxml");
+    }
+
+    private void generateBill(String reportPath) {
         try {
-//            Connection connection = DBConnection.getInstance().getConnection();
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("p_Date", LocalDate.now().toString());
-            //parameters.put("p_credit_id", lblCreditID.getText());
             parameters.put("p_Bill_Id", lblBillID.getText());
 
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/BillCredits.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    jasperReport,
-                    parameters
-//                    connection
-            );
+            JasperPrint jasperPrint = billBO.generateBill(reportPath, parameters);
             JasperViewer.viewReport(jasperPrint, false);
 
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
-            e.printStackTrace();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Data Empty..!").show();
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load Report..!").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to generate report!").show();
             e.printStackTrace();
         }
     }
