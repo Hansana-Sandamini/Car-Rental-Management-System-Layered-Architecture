@@ -1,4 +1,4 @@
-package lk.ijse.rdfcarrentals.dao;
+package lk.ijse.rdfcarrentals.util;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

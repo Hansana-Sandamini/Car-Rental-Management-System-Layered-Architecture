@@ -6,7 +6,7 @@ import lk.ijse.rdfcarrentals.bo.custom.RepairBO;
 import lk.ijse.rdfcarrentals.dto.RepairDTO;
 import lk.ijse.rdfcarrentals.entity.Car;
 import lk.ijse.rdfcarrentals.view.tdm.RepairTM;
-import lk.ijse.rdfcarrentals.dao.OptionButtonsUtil;
+import lk.ijse.rdfcarrentals.util.OptionButtonsUtil;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;

@@ -1,7 +1,7 @@
 package lk.ijse.rdfcarrentals.controller;
 
 import javafx.application.Platform;
-import lk.ijse.rdfcarrentals.dao.ClockUtil;
+import lk.ijse.rdfcarrentals.util.ClockUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
