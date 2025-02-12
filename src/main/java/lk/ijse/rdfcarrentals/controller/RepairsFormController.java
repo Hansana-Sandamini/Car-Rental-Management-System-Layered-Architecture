@@ -238,7 +238,7 @@ public class RepairsFormController implements Initializable {
         cmbLicensePlateNo.setValue("");
         txtFldDescription.setText("");
         txtFldCost.setText("");
-        txtDate.setValue(null);
+        txtDate.setValue(LocalDate.now());
     }
 
     private void refreshTable() throws SQLException, ClassNotFoundException {

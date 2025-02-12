@@ -1,5 +1,6 @@
 package lk.ijse.rdfcarrentals.controller;
 
+import javafx.application.Platform;
 import lk.ijse.rdfcarrentals.dao.ClockUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,9 @@ import lk.ijse.rdfcarrentals.dao.custom.impl.QueryDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminDashboardFormController implements Initializable {
@@ -88,12 +91,13 @@ public class AdminDashboardFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ClockUtil.startClock(lblDate, lblTime);
         loadChart();
+        int currentYear = Year.now().getValue();
 
         try {
             lblTotalSales.setText(queryDAO.getMonthlySales() + " Sales");
             lblCreditNotPaid.setText(queryDAO.getCreditNotPaidCount() + " Sales");
             setTopProducts();
-            lblRev.setText("Rs " + queryDAO.getYearTotalSaleAmount() + ".00");
+            lblRev.setText("Rs " + queryDAO.getYearTotalSaleAmount(currentYear) + ".00");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -125,18 +129,39 @@ public class AdminDashboardFormController implements Initializable {
     }
 
     private void loadChart(BarChart barChart) {
-        XYChart.Series series = new XYChart.Series();
-        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        int currentYear = Year.now().getValue();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName(String.valueOf(currentYear));
+
+        String[] months = {"January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
 
         try {
-            int count = 0;
-            for (Double income : queryDAO.getIncomeMonthly()) {
-                series.getData().add(new XYChart.Data(months[count++], income));
+            List<Double> monthlyIncome = queryDAO.getIncomeMonthly(currentYear);
+
+            System.out.println("Income data: " + monthlyIncome);
+            if (monthlyIncome == null || monthlyIncome.isEmpty()) {
+                System.out.println("No income data found for year: " + currentYear);
+                return;
             }
+
+            for (int i = 0; i < months.length; i++) {
+                series.getData().add(new XYChart.Data<>(months[i], monthlyIncome.get(i)));
+            }
+
+            Platform.runLater(() -> {
+                if (barChart == null) {
+                    System.out.println("Error: Bar chart is NULL!");
+                    return;
+                }
+
+                barChart.getData().add(series);
+                barChart.getXAxis().setTickLabelRotation(0);
+            });
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        barChart.getData().setAll(series);
-        barChart.getXAxis().setTickLabelRotation(360);
     }
+
 }

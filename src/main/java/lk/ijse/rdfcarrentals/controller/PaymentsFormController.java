@@ -31,6 +31,8 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class PaymentsFormController implements Initializable {
@@ -297,8 +299,8 @@ public class PaymentsFormController implements Initializable {
         lblBillID.setText(billBO.getNextBillId());
         txtFldPaymentMethod.setText("");
         txtFldAmount.setText("");
-        txtDate.setValue(null);
-        txtTime.setText("");
+        txtDate.setValue(LocalDate.now());
+        txtTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
 
     private void refreshTable() throws SQLException, ClassNotFoundException {

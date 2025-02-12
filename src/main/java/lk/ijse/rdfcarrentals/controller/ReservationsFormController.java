@@ -31,6 +31,8 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ReservationsFormController implements Initializable {
@@ -361,8 +363,8 @@ public class ReservationsFormController implements Initializable {
         lblReservationID.setText(reservationBO.getNextReservationId());
         cmbCustomerNIC.setValue("");
         cmbCashierUserName.setValue("");
-        txtPickUpDate.setValue(null);
-        txtPickUpTime.setText("");
+        txtPickUpDate.setValue(LocalDate.now());
+        txtPickUpTime.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         txtReturnDate.setValue(null);
         txtReturnTime.setText("");
         cmbIsDriverWant.setValue("");

@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.rdfcarrentals.bo.custom.BillBO;
 import lk.ijse.rdfcarrentals.bo.custom.SuperBO;
 import lk.ijse.rdfcarrentals.dao.DAOFactory;
-import lk.ijse.rdfcarrentals.dao.custom.BillDAO;
+import lk.ijse.rdfcarrentals.dao.custom.impl.BillDAOImpl;
 import lk.ijse.rdfcarrentals.db.DBConnection;
 import lk.ijse.rdfcarrentals.dto.BillDTO;
 import lk.ijse.rdfcarrentals.entity.Bill;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class BillBOImpl implements BillBO, SuperBO {
 
-    BillDAO billDAO = (BillDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.BILL);
+    BillDAOImpl billDAO = (BillDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.BILL);
 
     @Override
     public String getNextBillId() throws SQLException, ClassNotFoundException {

@@ -1,23 +1,29 @@
 package lk.ijse.rdfcarrentals.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.rdfcarrentals.bo.custom.BOFactory;
 import lk.ijse.rdfcarrentals.bo.custom.CashierBO;
+import lk.ijse.rdfcarrentals.dao.DAOFactory;
 import lk.ijse.rdfcarrentals.dao.custom.impl.CashierDAOImpl;
 import lk.ijse.rdfcarrentals.entity.Cashier;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class CashierLoginFormController {
+public class CashierLoginFormController implements Initializable {
 
     @FXML
     private Button btnCashierLogin;
@@ -38,7 +44,7 @@ public class CashierLoginFormController {
     public static String name;
 
     CashierBO cashierBO = (CashierBO) BOFactory.getInstance().getBO(BOFactory.BOType.CASHIER);
-    CashierDAOImpl cashierDAO = new CashierDAOImpl();
+    CashierDAOImpl cashierDAO = (CashierDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CASHIER);
 
     @FXML
     void btnCashierLoginOnAction(ActionEvent event) throws IOException {
@@ -81,4 +87,20 @@ public class CashierLoginFormController {
         cashierLoginPane.getChildren().add(load);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> txtFldCashierUserName.requestFocus());
+
+        txtFldCashierUserName.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                txtFldCashierPassword.requestFocus();
+            }
+        });
+
+        txtFldCashierPassword.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                login();
+            }
+        });
+    }
 }
